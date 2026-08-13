@@ -232,3 +232,4 @@ outputs/
 # Model checkpoints
 *.pt
 *.pth
+.pytest_cache/
