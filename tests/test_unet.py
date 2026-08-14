@@ -1,20 +1,21 @@
 import torch
 
-from src.unet import BasicUNet
+from src.unet import TimeConditionedUNet
 
 
 def test_unet_output_shape():
-    model = BasicUNet()
+    model = TimeConditionedUNet()
 
     x = torch.rand(8, 1, 28, 28)
+    timesteps = torch.randint(0, 1000, (8,))
 
-    output = model(x)
+    output = model(x, timesteps)
 
     assert output.shape == x.shape
 
 
 def test_unet_has_trainable_parameters():
-    model = BasicUNet()
+    model = TimeConditionedUNet()
 
     parameter_count = sum(
         parameter.numel()
