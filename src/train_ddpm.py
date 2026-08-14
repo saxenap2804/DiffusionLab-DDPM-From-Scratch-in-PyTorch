@@ -1,4 +1,5 @@
 import os
+import argparse
 
 import matplotlib.pyplot as plt
 import torch
@@ -136,6 +137,44 @@ def train_ddpm(
         "Loss graph saved to outputs/ddpm_training_loss.png"
     )
 
-
 if __name__ == "__main__":
-    train_ddpm()
+    parser = argparse.ArgumentParser(
+        description="Train a DDPM model on MNIST."
+    )
+
+    parser.add_argument(
+        "--epochs",
+        type=int,
+        default=3,
+        help="Number of training epochs"
+    )
+
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=128,
+        help="Training batch size"
+    )
+
+    parser.add_argument(
+        "--learning-rate",
+        type=float,
+        default=1e-3,
+        help="Optimizer learning rate"
+    )
+
+    parser.add_argument(
+        "--num-timesteps",
+        type=int,
+        default=1000,
+        help="Number of diffusion timesteps"
+    )
+
+    args = parser.parse_args()
+
+    train_ddpm(
+        epochs=args.epochs,
+        batch_size=args.batch_size,
+        learning_rate=args.learning_rate,
+        num_timesteps=args.num_timesteps
+    )
